@@ -26,7 +26,7 @@ usage() {
 while [[ $# -gt 0 ]]; do
     case $1 in
         -e|--backend)
-            ARCH="$2"
+            BACKEND="$2"
             shift 2
             ;;
         -p|--precision)
@@ -98,13 +98,13 @@ else
 fi
 
 if [[ "$BACKEND" == "gpu" ]]; then
-    BUILD_DIR="lib_cuda_$PRECISION_SUFFIX$USE_MPI_SUFFIX"
+    BUILD_DIR="lib_cuda_${PRECISION_SUFFIX}${USE_MPI_SUFFIX}"
     CMAKE_ARGS="$COMMON_CMAKE_ARGS \
                 -DCMAKE_CUDA_COMPILER=nvcc \
                 -DAMReX_GPU_BACKEND=CUDA"
     echo "Configurations: CUDA backend, precision: $PRECISION_SUFFIX, MPI: $USE_MPI"
 elif [[ "$BACKEND" == "cpu" ]]; then
-    BUILD_DIR="lib_cpu_$PRECISION_SUFFIX$USE_MPI_SUFFIX"
+    BUILD_DIR="lib_cpu_${PRECISION_SUFFIX}${USE_MPI_SUFFIX}"
     CMAKE_ARGS="$COMMON_CMAKE_ARGS \
                 -DAMReX_GPU_BACKEND=NONE"
     echo "Configurations: CPU backend, precision: $PRECISION_SUFFIX, MPI: $USE_MPI"
